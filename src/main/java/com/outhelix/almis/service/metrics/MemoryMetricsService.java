@@ -2,6 +2,7 @@ package com.outhelix.almis.service.metrics;
 
 import com.outhelix.almis.dto.metrics.MemoryMetrics;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
 import oshi.hardware.GlobalMemory;
@@ -12,6 +13,7 @@ import oshi.hardware.HardwareAbstractionLayer;
 public class MemoryMetricsService {
     private final SystemInfo systemInfo;
 
+    @Cacheable(value = "memory", key = "#root.methodName")
     public MemoryMetrics collectMemoryMetrics() {
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
         GlobalMemory memory = hardware.getMemory();

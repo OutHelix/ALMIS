@@ -39,4 +39,5 @@ public class MetricsController {
     public ResponseEntity<SystemMetrics> getAllMetrics() {
         return ResponseEntity.ok(systemMetricsCollector.collectAllMetrics());
     }
+
 }

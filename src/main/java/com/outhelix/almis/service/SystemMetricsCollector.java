@@ -8,6 +8,7 @@ import com.outhelix.almis.service.metrics.CpuMetricsService;
 import com.outhelix.almis.service.metrics.MemoryMetricsService;
 import com.outhelix.almis.service.metrics.StorageMetricsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class SystemMetricsCollector {
         return StorageService.collectStorageMetrics();
     }
 
+    @Cacheable(value = "system", key = "'system::all'")
     public SystemMetrics collectAllMetrics() {
         return SystemMetrics.builder()
                 .cpu(cpuService.collectCpuMetrics())

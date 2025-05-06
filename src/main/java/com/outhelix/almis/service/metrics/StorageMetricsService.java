@@ -2,6 +2,7 @@ package com.outhelix.almis.service.metrics;
 
 import com.outhelix.almis.dto.metrics.StorageMetrics;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
 
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 public class StorageMetricsService {
     private final SystemInfo systemInfo;
 
+    @Cacheable(value = "storage", key = "#root.methodName")
     public List<StorageMetrics> collectStorageMetrics() {
         return systemInfo.getOperatingSystem().getFileSystem().getFileStores()
                 .stream()
