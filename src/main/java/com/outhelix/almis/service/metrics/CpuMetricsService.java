@@ -2,7 +2,6 @@ package com.outhelix.almis.service.metrics;
 
 import com.outhelix.almis.dto.metrics.CpuMetrics;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
@@ -13,7 +12,6 @@ import oshi.hardware.HardwareAbstractionLayer;
 public class CpuMetricsService {
     private final SystemInfo systemInfo;
 
-    @Cacheable(value = "cpu", key = "'cpu::' + #root.methodName")
     public CpuMetrics collectCpuMetrics() {
         HardwareAbstractionLayer hardware = systemInfo.getHardware();
         CentralProcessor processor = hardware.getProcessor();
